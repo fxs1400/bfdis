@@ -1,0 +1,50 @@
+<div style="display:flex; height: 100%;">
+    <textarea id="ji" style="width: 50%; height: 100%;"></textarea>
+    <div style="width: 50%; height: 100%;">
+        <svg id="vi" width="100%" height="80%" style="border:3px solid; background: url(https://files.catbox.moe/feyg9r.png);"></svg>
+        <button onclick="t()">start</button>
+        <button onclick="alert('To add block:\nadd(x, y, color, stroke, onclick)\n\nTo add character:\nchar(name, x, y)\n\nNames: pencil, pin, blocky, f&c');">Help</button>
+</div>
+
+<script>
+    let x = document.getElementById('ji');
+    let o = document.getElementById('vi');
+
+    function t() {
+        o.innerHTML = '<text x="50%" y="50%" text-anchor="middle">loading ...</text>';
+        setTimeout(function () {
+            o.innerHTML = ''; 
+            try {
+                eval(x.value);
+            } catch (e) {
+                console.error(e);
+            }
+        }, 1000);
+    }
+
+    function add(xPos, yPos, color, st, clic) {
+        o.innerHTML += `<rect x="${xPos}" y="${yPos}" fill="${color}" stroke="${st}" stroke-width="2" onclick="${clic}" width="50" height="50"/>`;
+    }
+
+    function char(name, xPos, yPos) {
+        let url = "";
+        let w = 50, h = 50;
+        
+        if(name === "pencil") {
+            url = "https://static.wikia.nocookie.net/battlefordreamisland/images/f/f4/PencilTPOT13%2B.png";
+            h = 100;
+        } else if(name === "pin") {
+            url = "https://static.wikia.nocookie.net/battlefordreamisland/images/3/39/Pin_intro.png";
+        } else if(name === "blocky") {
+            url = "https://static.wikia.nocookie.net/battlefordreamisland/images/e/e1/OLDblocky.png";
+        } else if(name === "f&c") {
+            url = "https://i.makeagif.com/media/12-21-2013/KJ0qnT.gif";
+        } else if(name === "ruby") {
+            url = "https://static.wikia.nocookie.net/battlefordreamisland/images/8/8d/Ruby_updated.png";
+        }
+
+        if(url) {
+            o.innerHTML += `<image href="${url}" width="${w}" height="${h}" x="${xPos}" y="${yPos}" onclick="this.remove()"></image>`;
+        }
+    }
+</script>
